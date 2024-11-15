@@ -1,18 +1,18 @@
-resource "aws_eip" "nat" {
+resource "aws_eip" "this" {
   # vps = true
   tags = {
-    "Name" = "dev-nat"
+    "Name" = "${var.env}-nat"
   }
 }
 
-resource "aws_nat_gateway" "nat" {
+resource "aws_nat_gateway" "this" {
 
-  allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public_us_east_1a.id
+  allocation_id = aws_eip.this.id
+  subnet_id     = aws_subnet.public[0].id
 
   tags = {
-    Name = "dev-nat"
+    Name = "${var.env}-nat"
   }
 
-  depends_on = [aws_internet_gateway.igw]
+  depends_on = [aws_internet_gateway.this]
 }

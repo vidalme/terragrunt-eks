@@ -1,10 +1,10 @@
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+resource "aws_vpc" "this" {
+  cidr_block = var.vpc_cidr_block
 
   enable_dns_support   = true
   enable_dns_hostnames = true
 
   tags = {
-    Name = "dev-main"
+    Name = "${var.env}-main"
   }
 }
